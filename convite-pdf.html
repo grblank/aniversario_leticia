@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Letícia • Convite PDF</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <style>
+        :root {
+            --rose: #c2185b;
+            --rose-light: #e91e8c;
+            --rose-deep: #880e4f;
+            --gold: #d4af37;
+            --gold-light: #f0d060;
+            --dark: #07000c;
+            --card-bg: rgba(255, 255, 255, 0.04);
+            --card-border: rgba(212, 175, 55, 0.1);
+            --text: #fff5f9;
+            --text-muted: rgba(255, 245, 249, 0.68);
+            --shadow: rgba(7, 0, 12, 0.42);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            background: #170711;
+            color: var(--text);
+            font-family: 'Montserrat', sans-serif;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        .screen-hint {
+            max-width: 210mm;
+            margin: 16px auto 0;
+            padding: 12px 16px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.08);
+            color: rgba(255, 245, 249, 0.92);
+            text-align: center;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .document {
+            padding: 16px 0 36px;
+        }
+
+        .page {
+            width: 210mm;
+            height: 297mm;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 50% 18%, rgba(194, 24, 91, 0.25), transparent 26%),
+                radial-gradient(circle at 50% 82%, rgba(212, 175, 55, 0.10), transparent 20%),
+                var(--dark);
+            box-shadow: 0 28px 60px var(--shadow);
+        }
+
+        .page-photo {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.33) saturate(0.88) contrast(1.04);
+            z-index: 0;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .page::before,
+        .page::after {
+            content: "";
+            position: absolute;
+            border-radius: 50%;
+            z-index: 1;
+            filter: blur(70px);
+            pointer-events: none;
+        }
+
+        .page::before {
+            width: 76mm;
+            height: 76mm;
+            top: -14mm;
+            left: -10mm;
+            background: rgba(194, 24, 91, 0.18);
+        }
+
+        .page::after {
+            width: 82mm;
+            height: 82mm;
+            right: -18mm;
+            bottom: -14mm;
+            background: rgba(212, 175, 55, 0.12);
+        }
+
+        .wash {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.12;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .wash.one {
+            width: 88mm;
+            height: 58mm;
+            top: 36mm;
+            right: -12mm;
+            background: rgba(194, 24, 91, 0.36);
+        }
+
+        .wash.two {
+            width: 92mm;
+            height: 60mm;
+            bottom: 18mm;
+            left: -18mm;
+            background: rgba(212, 175, 55, 0.16);
+        }
+
+        .invite-card {
+            position: relative;
+            z-index: 2;
+            width: 172mm;
+            min-height: 248mm;
+            margin: 18mm auto 0;
+            padding: 14mm 14mm 12mm;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 28px 70px rgba(7, 0, 12, 0.34);
+        }
+
+        .invite-card-surface {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .invite-inner {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            min-height: 100%;
+        }
+
+        .hero-kicker {
+            font-size: 0.62rem;
+            font-weight: 700;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: var(--gold);
+            display: inline-block;
+            padding: 0.42rem 0.9rem;
+            border-radius: 999px;
+            background: rgba(7, 0, 12, 0.45);
+            border: 1px solid rgba(212, 175, 55, 0.24);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+
+        .name {
+            margin: 7mm 0 0;
+            font-family: 'Great Vibes', cursive;
+            font-size: 47pt;
+            font-weight: 400;
+            line-height: 0.92;
+            color: var(--text);
+            text-shadow:
+                0 0 36px rgba(194, 24, 91, 0.52),
+                0 0 90px rgba(194, 24, 91, 0.24);
+        }
+
+        .age {
+            margin-top: 2mm;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 18pt;
+            font-weight: 300;
+            letter-spacing: 0.32em;
+            text-transform: uppercase;
+            line-height: 1;
+            color: var(--gold);
+        }
+
+        .hero-rule {
+            width: 34mm;
+            height: 1px;
+            margin-top: 5mm;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        .lead {
+            max-width: 112mm;
+            margin: 7mm auto 0;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 13.5pt;
+            font-style: italic;
+            font-weight: 300;
+            line-height: 1.7;
+            color: var(--text-muted);
+        }
+
+        .date-band {
+            width: 100%;
+            max-width: 132mm;
+            margin-top: 10mm;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 31mm minmax(0, 1fr);
+            align-items: center;
+            justify-items: stretch;
+            position: relative;
+        }
+
+        .date-band::before,
+        .date-band::after {
+            content: "✦";
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 10pt;
+            color: var(--gold);
+        }
+
+        .date-band::before {
+            left: -7mm;
+        }
+
+        .date-band::after {
+            right: -7mm;
+        }
+
+        .date-side {
+            min-height: 20mm;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 1px;
+            border: 1.2px solid rgba(212, 175, 55, 0.24);
+            background: var(--card-bg);
+            text-transform: uppercase;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .date-side.left {
+            border-right: none;
+            border-radius: 12mm 0 0 12mm;
+            align-items: flex-start;
+            padding: 0 6mm 0 11mm;
+        }
+
+        .date-side.right {
+            border-left: none;
+            border-radius: 0 12mm 12mm 0;
+            align-items: flex-end;
+            padding: 0 11mm 0 6mm;
+        }
+
+        .date-label {
+            font-size: 9pt;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            color: var(--gold);
+        }
+
+        .date-sub {
+            font-size: 8.4pt;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .date-day {
+            width: 31mm;
+            height: 31mm;
+            display: grid;
+            place-items: center;
+            margin: 0 auto;
+            justify-self: center;
+            align-self: center;
+            padding: 0;
+            text-align: center;
+            border-radius: 50%;
+            background: linear-gradient(180deg, rgba(14, 2, 22, 0.98), rgba(20, 3, 28, 0.98));
+            border: 1.6px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.08);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 40pt;
+            font-weight: 600;
+            line-height: 1;
+            color: var(--text);
+        }
+
+
+
+        .venue {
+            margin-top: 9mm;
+            width: 100%;
+            max-width: 128mm;
+            padding: 7mm 8mm;
+            border-radius: 18px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            color: var(--text);
+        }
+
+        .venue-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 18pt;
+            font-weight: 600;
+            line-height: 1.1;
+            color: var(--text);
+        }
+
+        .venue-address {
+            margin-top: 3mm;
+            font-size: 9.2pt;
+            line-height: 1.7;
+            color: var(--text-muted);
+        }
+
+        .site-note {
+            margin-top: 3.5mm;
+            font-size: 8.1pt;
+            line-height: 1.75;
+            letter-spacing: 0.04em;
+            color: var(--text-muted);
+        }
+
+        .actions {
+            width: 100%;
+            max-width: 132mm;
+            margin-top: auto;
+            padding-top: 10mm;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4mm;
+        }
+
+        .action {
+            text-decoration: none;
+            color: var(--text);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3.5mm;
+        }
+
+        .action-circle {
+            width: 22mm;
+            height: 22mm;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: var(--card-bg);
+            border: 1.2px solid rgba(212, 175, 55, 0.28);
+            box-shadow: 0 10px 20px rgba(7, 0, 12, 0.24);
+            color: var(--gold);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .action-circle svg {
+            width: 11mm;
+            height: 11mm;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.7;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .action-label {
+            font-size: 7.2pt;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            line-height: 1.5;
+            text-transform: uppercase;
+            color: var(--text);
+        }
+
+        .hint {
+            margin-top: 8mm;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 12.5pt;
+            font-weight: 300;
+            font-style: italic;
+            color: var(--text-muted);
+        }
+
+        .footer-line {
+            margin-top: 5mm;
+            font-size: 7.8pt;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: rgba(255, 245, 249, 0.45);
+        }
+
+        @media print {
+
+            html,
+            body {
+                background: var(--dark) !important;
+                color: var(--text) !important;
+            }
+
+            .screen-hint {
+                display: none;
+            }
+
+            .document {
+                padding: 0;
+            }
+
+            .page {
+                margin: 0 !important;
+                background: var(--dark) !important;
+                box-shadow: none !important;
+                border: none !important;
+            }
+
+            .page-photo {
+                display: block !important;
+                filter: brightness(0.3) saturate(0.82) contrast(1.04) !important;
+            }
+
+            .invite-card {
+                box-shadow: none !important;
+                border: none !important;
+            }
+
+            .invite-card-surface {
+                display: block !important;
+            }
+
+            .hero-kicker {
+                background: rgba(7, 0, 12, 0.45) !important;
+                color: var(--gold) !important;
+                border-color: rgba(212, 175, 55, 0.24) !important;
+            }
+
+            .name {
+                color: var(--text) !important;
+                text-shadow: none !important;
+            }
+
+            .age,
+            .date-label {
+                color: var(--gold) !important;
+            }
+
+            .hero-rule {
+                background: linear-gradient(90deg, transparent, var(--gold), transparent) !important;
+            }
+
+            .lead,
+            .date-sub,
+            .venue-address,
+            .site-note,
+            .hint,
+            .footer-line,
+            .action-label,
+            .action {
+                color: var(--text) !important;
+            }
+
+            .date-band::before,
+            .date-band::after {
+                color: var(--gold) !important;
+            }
+
+            .date-side,
+            .venue,
+            .action-circle {
+                background: rgba(255, 255, 255, 0.04) !important;
+                border-color: rgba(212, 175, 55, 0.24) !important;
+                box-shadow: none !important;
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+            }
+
+            .date-day {
+                background: linear-gradient(180deg, rgba(14, 2, 22, 0.98), rgba(20, 3, 28, 0.98)) !important;
+                color: var(--text) !important;
+                border-color: rgba(212, 175, 55, 0.3) !important;
+                box-shadow: none !important;
+            }
+
+            .venue-name {
+                color: var(--text) !important;
+            }
+
+            .action-circle {
+                color: var(--gold) !important;
+            }
+
+            .footer-line {
+                color: rgba(255, 245, 249, 0.45) !important;
+            }
+        }
+
+        @media screen and (max-width: 900px) {
+            .screen-hint {
+                margin-left: 12px;
+                margin-right: 12px;
+            }
+
+            .page {
+                width: min(100%, 210mm);
+                height: auto;
+                min-height: 297mm;
+            }
+
+            .invite-card {
+                width: calc(100% - 40px);
+                min-height: auto;
+            }
+
+            .actions {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="screen-hint">
+        Abra este arquivo no navegador e use <strong>Imprimir</strong> &rarr; <strong>Salvar como PDF</strong>.
+        Para preservar os brilhos e o fundo, mantenha a opção de imprimir gráficos de fundo ativada.
+    </div>
+
+    <main class="document">
+        <section class="page">
+            <img class="page-photo" src="background.png" alt="" aria-hidden="true" />
+            <div class="wash one"></div>
+            <div class="wash two"></div>
+
+            <article class="invite-card">
+                <svg class="invite-card-surface" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                    <rect x="0.5" y="0.5" width="99" height="99" rx="6" ry="6" fill="#07000c" fill-opacity="0.82"
+                        stroke="#d4af37" stroke-opacity="0.16" />
+                </svg>
+                <div class="invite-inner">
+                    <div class="hero-kicker">Você está convidado para</div>
+                    <h1 class="name">Letícia</h1>
+                    <div class="age">15 anos</div>
+                    <div class="hero-rule"></div>
+
+                    <p class="lead">
+                        Será uma honra ter você ao meu lado para celebrar esse momento tão especial.
+                    </p>
+
+                    <section class="date-band" aria-label="Data do evento">
+                        <div class="date-side left">
+                            <span class="date-label">Sábado</span>
+                            <span class="date-sub">19h30</span>
+                        </div>
+
+                        <div class="date-day">
+                            <span style="margin-bottom: 20px;">4</span>
+                        </div>
+
+                        <div class="date-side right">
+                            <span class="date-label">Julho</span>
+                            <span class="date-sub">2026</span>
+                        </div>
+                    </section>
+
+                    <section class="venue" aria-label="Local do evento">
+                        <div class="venue-name">Guess Festas</div>
+                        <div class="venue-address">
+                            R. Nossa Srª. de Fátima, 15<br />
+                            Cubatão, Joinville - SC
+                        </div>
+
+                    </section>
+
+                    <section class="actions" aria-label="Atalhos do convite digital">
+                        <a class="action" href="index.html#evento" target="_blank">
+                            <div class="action-circle" aria-hidden="true">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M20 12v8H4v-8" />
+                                    <path d="M2 7h20v5H2z" />
+                                    <path d="M12 7v13" />
+                                    <path d="M12 7H8.5a2.5 2.5 0 1 1 0-5C11 2 12 4 12 7z" />
+                                    <path d="M12 7h3.5a2.5 2.5 0 1 0 0-5C13 2 12 4 12 7z" />
+                                </svg>
+                            </div>
+                            <div class="action-label">Acesse o site<br />com as informações</div>
+                        </a>
+
+                        <a class="action" href="index.html#confirmacao" target="_blank">
+                            <div class="action-circle" aria-hidden="true">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 20s-7-4.6-7-10.5A4.5 4.5 0 0 1 9.6 5c1.3 0 2.5.6 3.4 1.6A4.6 4.6 0 0 1 16.4 5 4.5 4.5 0 0 1 21 9.5C21 15.4 14 20 14 20h-2z" />
+                                </svg>
+                            </div>
+                            <div class="action-label">Confirmar<br />presença</div>
+                        </a>
+
+                        <a class="action" target="_blank"
+                            href="https://www.google.com/maps/place/GUESS+CASA+DE+FESTAS/@-26.2181272,-48.8021773,18.88z/data=!4m15!1m8!3m7!1s0x94deae82e75f7ce5:0x24b82c8a46f4c1e7!2sR.+Nossa+Sr%C2%AA.+de+F%C3%A1tima,+15+-+Cubat%C3%A3o,+Joinville+-+SC,+89226-810!3b1!8m2!3d-26.2181448!4d-48.8016259!16s%2Fg%2F11jyxmff1v!3m5!1s0x94deaf91d5d9f5d7:0x4acd943a33b761cf!8m2!3d-26.2180614!4d-48.8021697!16s%2Fg%2F11h48pfz5t?entry=ttu&g_ep=EgoyMDI2MDUwMi4wIKXMDSoASAFQAw%3D%3D">
+                            <div class="action-circle" aria-hidden="true">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M12 21s-6-5.4-6-11a6 6 0 1 1 12 0c0 5.6-6 11-6 11z" />
+                                    <circle cx="12" cy="10" r="2.2" />
+                                </svg>
+                            </div>
+                            <div class="action-label">Como<br />chegar</div>
+                        </a>
+                    </section>
+
+                    <div class="hint">Clique nos botões acima.</div>
+                    <div class="footer-line">Letícia • 15 Anos • 04.07.2026</div>
+                </div>
+            </article>
+        </section>
+    </main>
+</body>
+
+</html>
