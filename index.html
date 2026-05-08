@@ -12,16 +12,16 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --rose:       #c2185b;
-      --rose-light: #e91e8c;
-      --rose-deep:  #880e4f;
+      --rose:       #f0588e;
+      --rose-light: #fa90c8;
+      --rose-deep:  #d93f78;
       --gold:       #d4af37;
       --gold-light: #f0d060;
-      --dark:       #07000c;
-      --card-bg:    rgba(255, 255, 255, 0.04);
-      --card-border:rgba(212, 175, 55, 0.1);
+      --dark:       #160010;
+      --card-bg:    rgba(255, 180, 215, 0.07);
+      --card-border:rgba(240, 100, 160, 0.2);
       --text:       #fff5f9;
-      --text-muted: rgba(255, 245, 249, 0.6);
+      --text-muted: rgba(255, 235, 245, 0.65);
       --ease:       cubic-bezier(0.4, 0, 0.2, 1);
     }
 
@@ -39,6 +39,7 @@
       background: var(--dark);
       color: var(--text);
       overflow-x: hidden;
+      text-align: center;
     }
 
     /* ── SCROLLBAR ── */
@@ -60,11 +61,11 @@
       transition: background 0.4s var(--ease), padding 0.4s var(--ease);
     }
     #navbar.scrolled {
-      background: rgba(7, 0, 12, 0.88);
+      background: rgba(22, 0, 16, 0.90);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
       padding: 0.9rem 2.5rem;
-      border-bottom: 1px solid rgba(212, 175, 55, 0.12);
+      border-bottom: 1px solid rgba(240, 100, 160, 0.2);
     }
     .nav-logo {
       font-family: 'Great Vibes', cursive;
@@ -115,7 +116,7 @@
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(7, 0, 12, 0.97);
+      background: rgba(22, 0, 16, 0.97);
       z-index: 800;
       flex-direction: column;
       align-items: center;
@@ -163,19 +164,22 @@
       inset: 0;
       background: linear-gradient(
         to bottom,
-        rgba(7, 0, 12, 0.35) 0%,
-        rgba(7, 0, 12, 0.10) 30%,
-        rgba(7, 0, 12, 0.55) 75%,
-        rgba(7, 0, 12, 1.00) 100%
+        rgba(22, 0, 16, 0.30) 0%,
+        rgba(22, 0, 16, 0.08) 30%,
+        rgba(22, 0, 16, 0.52) 75%,
+        rgba(22, 0, 16, 1.00) 100%
       );
     }
 
     /* Sparkle canvas */
     #sparkleCanvas {
-      position: absolute;
+      position: fixed;
       inset: 0;
       z-index: 1;
       pointer-events: none;
+      mix-blend-mode: screen;
+      width: 100%;
+      height: 100%;
     }
 
     .hero-content {
@@ -198,15 +202,15 @@
       display: inline-block;
       padding: 0.42rem 0.9rem;
       border-radius: 999px;
-      background: rgba(7, 0, 12, 0.5);
-      border: 1px solid rgba(212, 175, 55, 0.3);
+      background: rgba(22, 0, 16, 0.55);
+      border: 1px solid rgba(240, 100, 160, 0.3);
       backdrop-filter: blur(4px);
       -webkit-backdrop-filter: blur(4px);
-      margin-bottom: 1.1rem;
+      margin-bottom: 1.5rem;
       text-shadow:
         0 1px 1px rgba(0, 0, 0, 0.7),
         0 0 10px rgba(0, 0, 0, 0.75),
-        0 0 24px rgba(7, 0, 12, 0.95);
+        0 0 24px rgba(22, 0, 16, 0.95);
       opacity: 0;
       animation: fadeUp 0.9s 0.3s forwards;
     }
@@ -219,8 +223,9 @@
       opacity: 0;
       animation: fadeUp 0.9s 0.65s forwards;
       text-shadow:
-        0 0 60px rgba(194, 24, 91, 0.9),
-        0 0 140px rgba(194, 24, 91, 0.4);
+        0 0 60px rgba(240, 88, 142, 1.0),
+        0 0 140px rgba(240, 88, 142, 0.6),
+        0 0 220px rgba(250, 144, 200, 0.3);
     }
     .hero-age {
       font-family: 'Cormorant Garamond', serif;
@@ -254,8 +259,10 @@
     .scroll-cue {
       position: absolute;
       bottom: 2.2rem;
-      left: 50%;
-      transform: translateX(-50%);
+      left: 0;
+      right: 0;
+      width: fit-content;
+      margin: 0 auto;
       z-index: 2;
       display: flex;
       flex-direction: column;
@@ -322,7 +329,7 @@
       border-radius: 50%;
       filter: blur(90px);
       pointer-events: none;
-      opacity: 0.06;
+      opacity: 0.1;
     }
 
     /* Reveal animation */
@@ -339,7 +346,7 @@
     /* ══════════════════════════════════
        SECTION: EVENTO
     ══════════════════════════════════ */
-    #evento { background: linear-gradient(180deg, var(--dark) 0%, #110014 50%, var(--dark) 100%); }
+    #evento { background: linear-gradient(180deg, var(--dark) 0%, #220016 50%, var(--dark) 100%); }
 
     /* Countdown */
     .countdown-wrap {
@@ -447,7 +454,7 @@
     /* ══════════════════════════════════
        SECTION: VESTIMENTAS
     ══════════════════════════════════ */
-    #vestimentas { background: linear-gradient(180deg, var(--dark) 0%, #0e0016 50%, var(--dark) 100%); }
+    #vestimentas { background: linear-gradient(180deg, var(--dark) 0%, #200014 50%, var(--dark) 100%); }
 
     .dress-badge {
       display: inline-block;
@@ -499,7 +506,7 @@
     /* ══════════════════════════════════
        SECTION: PRESENTES
     ══════════════════════════════════ */
-    #presentes { background: linear-gradient(180deg, var(--dark) 0%, #100008 50%, var(--dark) 100%); }
+    #presentes { background: linear-gradient(180deg, var(--dark) 0%, #220012 50%, var(--dark) 100%); }
 
     .pix-outer {
       display: flex;
@@ -606,7 +613,7 @@
     /* ══════════════════════════════════
        SECTION: CONFIRMAÇÃO
     ══════════════════════════════════ */
-    #confirmacao { background: linear-gradient(180deg, var(--dark) 0%, #110014 50%, var(--dark) 100%); }
+    #confirmacao { background: linear-gradient(180deg, var(--dark) 0%, #220016 50%, var(--dark) 100%); }
 
     .form-card {
       background: var(--card-bg);
@@ -641,6 +648,7 @@
       color: var(--text);
       font-family: 'Montserrat', sans-serif;
       font-size: 0.88rem;
+      text-align: center;
       outline: none;
       appearance: none;
       -webkit-appearance: none;
@@ -651,7 +659,7 @@
     .form-textarea:focus { border-color: var(--rose); }
     .form-input::placeholder,
     .form-textarea::placeholder { color: rgba(255,245,249,0.28); }
-    .form-select option { background: #1a002a; color: var(--text); }
+    .form-select option { background: #220018; color: var(--text); }
     .form-textarea { resize: vertical; min-height: 110px; }
 
     .radio-group { display: flex; gap: 0.9rem; }
@@ -754,6 +762,8 @@
 </head>
 <body>
 
+  <canvas id="sparkleCanvas" aria-hidden="true"></canvas>
+
   <!-- ══════════ NAV ══════════ -->
   <nav id="navbar">
     <a href="#hero" class="nav-logo">Letícia</a>
@@ -778,7 +788,6 @@
   <!-- ══════════ HERO ══════════ -->
   <section id="hero">
     <div id="hero-bg" aria-hidden="true"></div>
-    <canvas id="sparkleCanvas" aria-hidden="true"></canvas>
     <div class="hero-content">
       <p class="hero-pre">Você está convidado para</p>
       <h1 class="hero-name">Letícia</h1>
@@ -858,7 +867,7 @@
 
   <!-- ══════════ VESTIMENTAS ══════════ -->
   <section id="vestimentas">
-    <div class="blob" style="width:420px;height:420px;background:var(--rose-deep);bottom:-60px;left:-100px;"></div>
+   
     <div class="section-inner">
       <div class="reveal">
         <p class="eyebrow">✦ Como se Vestir</p>
@@ -866,16 +875,23 @@
         <p class="section-lead">
           O dress code sugerido para a noite é <em><strong>esporte chique</strong></em>.
         </p>
-       
       </div>
-      
-     
+
+      <div class="reveal reveal-d1">
+        <div class="dress-explainer">
+          <div class="dress-explainer-title">Atenção</div>
+          <p class="dress-explainer-text">
+            Meninas, por gentileza, evitem usar a cor <strong>rosa</strong> — essa cor é reservada para a aniversariante. ✨
+          </p>
+        </div>
+      </div>
+
     </div>
   </section>
 
   <!-- ══════════ PRESENTES ══════════ -->
   <section id="presentes">
-    <div class="blob" style="width:460px;height:460px;background:var(--gold);top:-80px;right:-110px;"></div>
+    <div class="blob" style="width:460px;height:460px;background:var(--gold);top:40px;right:-110px;"></div>
     <div class="section-inner" style="text-align:center">
       <div class="reveal">
         <p class="eyebrow">✦ Se Quiser Presentear</p>
@@ -1124,13 +1140,14 @@
       let W, H, particles = [];
 
       function resize() {
-        W = canvas.width  = heroEl.offsetWidth;
-        H = canvas.height = heroEl.offsetHeight;
+        W = canvas.width  = window.innerWidth;
+        H = canvas.height = document.documentElement.scrollHeight;
       }
       window.addEventListener('resize', resize);
+      document.fonts.ready.then(resize);
       resize();
 
-      const COLORS = ['#d4af37','#f0d060','#e91e8c','#ffffff','#ffaacc','#c2185b'];
+      const COLORS = ['#fa90c8','#ffbbdd','#f0588e','#ffffff','#ffd0e8','#d93f78','#f8d0e8'];
 
       function rand(a, b) { return Math.random() * (b - a) + a; }
 
@@ -1147,7 +1164,7 @@
         };
       }
 
-      for (let i = 0; i < 70; i++) {
+      for (let i = 0; i < 130; i++) {
         const p = spawn();
         p.alpha = Math.random();
         particles.push(p);
@@ -1213,7 +1230,7 @@
       document.getElementById('guestWrap').style.display = isAttending ? 'block' : 'none';
       document.getElementById('rsvpSubmitBtn').innerHTML = isAttending
         ? 'Confirmar Presença ✨'
-        : 'Informar Ausência ✨';
+        : 'Informar Ausência 😢';
     }
 
     document.querySelectorAll('input[name="attend"]').forEach(r => {
